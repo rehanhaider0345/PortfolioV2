@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rehan Shah | Portfolio</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<img src="picture.jpg" alt="Rehan Shah" class="profile-pic">
+		<h1>Rehan Shah | Portfolio</h1>
+		<nav>
+			<button onclick="showHome()">Home</button>
+			<button onclick="showSection('about')">About Me</button>
+			<button onclick="window.open('CV.pdf')">CV</button>
+			<button onclick="showSection('projects')">Projects</button>
+			<button onclick="showSection('socials')">Socials</button>
+		</nav>
+	</header>
+
+	<section id="about" class="section" style="display:none;">
+		<h2>About Me</h2>
+		<p>I am a Software Engineering student at FAST NUCES Peshawar, currently in my 4th semester. With a strong foundation in C++, Object-Oriented Programming, and Data Structures, I am passionate about building logical solutions to real-world problems. I am continuously expanding my skillset through projects and learning opportunities.</p>
+	</section>
+
+	<section id="projects" class="section" style="display:none;">
+		<h2>Projects</h2>
+		<div class="card-container">
+			<div class="card">
+				<h3>Multiple Gaming System</h3>
+				<a href="https://github.com/rehanhaider0345/Multiple-Gaming-System" target="_blank">View on GitHub</a>
+			</div>
+			<div class="card">
+				<h3>Instagram Clone</h3>
+				<a href="https://github.com/rehanhaider0345/Instagram-Clone" target="_blank">View on GitHub</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="socials" class="section" style="display:none;">
+		<h2>Socials</h2>
+		<div class="card-container">
+			<div class="card">
+				<h3>Instagram</h3>
+				<a href="https://www.instagram.com/syedrehanshah__" target="_blank">Open</a>
+			</div>
+			<div class="card">
+				<h3>LinkedIn</h3>
+				<a href="https://www.linkedin.com/in/syedrehanhaider0345" target="_blank">Connect</a>
+			</div>
+			<div class="card">
+				<h3>GitHub</h3>
+				<a href="https://github.com/rehanhaider0345" target="_blank">View Profile</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="contact" class="section">
+		<h2>Contact Me</h2>
+		<div id="form-container">
+			<form id="contact-form" action="https://formspree.io/f/xzzgvokk" method="POST">
+				<div class="contact-box">
+					<label for="name">Your Name</label>
+					<input type="text" name="name" required>
+				</div>
+				<div class="contact-box">
+					<label for="email">Your Email</label>
+					<input type="email" name="email" required>
+				</div>
+				<div class="contact-box">
+					<label for="message">Message</label>
+					<textarea name="message" rows="5" required></textarea>
+				</div>
+				<button type="submit">Send Message</button>
+			</form>
+		</div>
+		<p id="success-message" style="display:none; color:#ff8c00; font-weight:bold; margin-top:20px; font-size:20px;">
+			✅ Message Successfully Sent!
+		</p>
+	</section>
+
+	<script>
+		function showSection(id) {
+			const sections = document.querySelectorAll('.section');
+			sections.forEach(s => s.style.display = 'none');
+			document.getElementById(id).style.display = 'block';
+			document.getElementById("contact").style.display = 'none';
+		}
+		function showHome() {
+			const sections = document.querySelectorAll('.section');
+			sections.forEach(s => s.style.display = 'none');
+			document.getElementById("contact").style.display = 'block';
+
+			// reset form state on home
+			document.getElementById("form-container").style.display = 'block';
+			document.getElementById("success-message").style.display = 'none';
+		}
+
+		document.getElementById("contact-form").addEventListener("submit", async function(event) {
+			event.preventDefault();
+			const form = event.target;
+			const data = new FormData(form);
+			const response = await fetch(form.action, {
+				method: form.method,
+				body: data,
+				headers: { 'Accept': 'application/json' }
+			});
+			if (response.ok) {
+				form.reset();
+				document.getElementById("form-container").style.display = 'none';
+				document.getElementById("success-message").style.display = 'block';
+			} else {
+				alert("Oops! Something went wrong.");
+			}
+		});
+	</script>
+</body>
+</html>
